@@ -62,7 +62,7 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
 
     $result = file_get_contents($baseurl.'inc/surveyrequests.php?afg_id_lms='.$afgidlms);
 
-    $queryparams = array($courseid);
+    $queryparams = array('courseid' => $courseid);
 
     $content .= html_writer::start_tag('div');
     if ($filled == 0) {
@@ -73,7 +73,7 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     'class' => 'btn btn-default',
                     'style' => 'float: right')
         );
-        list($insql, $inparams) = $DB->get_in_or_equal(explode(',', $result), SQL_PARAMS_QM, 'param', false);
+        list($insql, $inparams) = $DB->get_in_or_equal(explode(',', $result), SQL_PARAMS_NAMED, 'param', false);
         $content .= html_writer::end_tag('h3');
     } else {
         $content .= html_writer::start_tag('h3').get_string('listofuserswithfilledsurvey', 'block_siesurvey');
@@ -83,7 +83,7 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     'class' => 'btn btn-default',
                     'style' => 'float: right')
         );
-        list($insql, $inparams) = $DB->get_in_or_equal(explode(',', $result));
+        list($insql, $inparams) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $content .= html_writer::end_tag('h3');
     }
     $content .= html_writer::end_tag('div');
@@ -95,9 +95,11 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     AND cx.instanceid = c.id
                     AND r.roleid = 5
                     AND cx.contextlevel = 50
-                    AND c.id = ?
-                    AND u.id ".$insql;
+                    AND c.id = :courseid
+                    AND u.id {$insql}";
 
+
+    
     $params = array_merge($queryparams, $inparams);
     $studentsrecords = $DB->get_recordset_sql($sql, $params);
     $content .= html_writer::start_tag('table', array('class' => 'table'));
