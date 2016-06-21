@@ -72,51 +72,51 @@ class block_siesurvey extends block_base {
             } else {
                 $this->content->text = get_string('accesstocoursemessage', 'block_siesurvey');
             }
-            return null;
-        }
-        if (isloggedin()) {
-            $coursecontext = context_course::instance($COURSE->id);
-            $canfillin = has_capability('block/siesurvey:fillinsurvey', $coursecontext, $USER, true) && !is_siteadmin();
-            $canviewlists = has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $USER, true);
-            if (!$canfillin && !$canviewlists) {
-                return null;
-            }
-            $sieconfig = get_config('package_sie');
-            $baseurl = $sieconfig->baseurl;
-            $profcertcat = $sieconfig->professionalcertificatecategory;
-            if ($profcertcat == '') {
-                $profcertcat = 1;
-            }
+        } else {
+            if (isloggedin()) {
+                $coursecontext = context_course::instance($COURSE->id);
+                $canfillin = has_capability('block/siesurvey:fillinsurvey', $coursecontext, $USER, true) && !is_siteadmin();
+                $canviewlists = has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $USER, true);
+                if (!$canfillin && !$canviewlists) {
+                    return null;
+                }
+                $sieconfig = get_config('package_sie');
+                $baseurl = $sieconfig->baseurl;
+                $profcertcat = $sieconfig->professionalcertificatecategory;
+                if ($profcertcat == '') {
+                    $profcertcat = 1;
+                }
 
-            if (isset($baseurl) && $baseurl != '' && $baseurl != null) {
-                $afgidlms = '';
-                if ($COURSE->category != $profcertcat) {
-                    // Es Propia.
-                    $afgidlms = $COURSE->id;
+                if (isset($baseurl) && $baseurl != '' && $baseurl != null) {
+                    $afgidlms = '';
+                    if ($COURSE->category != $profcertcat) {
+                        // Es Propia.
+                        $afgidlms = $COURSE->id;
+                    } else {
+                        // Es un certificado CNCP.
+                        $afgidlms = $COURSE->category;
+                    }
+                    $params = 'afg_id_lms='.$afgidlms.'&courseid='.$COURSE->id;
+                    if ($canfillin) {
+                        $this->content->text .= html_writer::tag('a', get_string('fillsurvey', 'block_siesurvey'),
+                                array('href' => $CFG->wwwroot.'/blocks/siesurvey/fillsurvey.php?'.$params));
+                    }
+                    if ($canviewlists) {
+                        $this->content->text .= html_writer::start_tag('p');
+                        $this->content->text .= html_writer::tag('a', get_string('listofuserswithfilledsurvey', 'block_siesurvey'),
+                                array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=1&'.$params));
+                        $this->content->text .= html_writer::end_tag('p');
+                        $this->content->text .= html_writer::start_tag('p');
+                        $this->content->text .= html_writer::tag('a', get_string('listofuserswithoutfilledsurvey', 'block_siesurvey'),
+                                array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=0&'.$params));
+                        $this->content->text .= html_writer::end_tag('p');
+                    }
                 } else {
-                    // Es un certificado CNCP.
-                    $afgidlms = $COURSE->category;
-                }
-                $params = 'afg_id_lms='.$afgidlms.'&courseid='.$COURSE->id;
-                if ($canfillin) {
-                    $this->content->text .= html_writer::tag('a', get_string('fillsurvey', 'block_siesurvey'),
-                            array('href' => $CFG->wwwroot.'/blocks/siesurvey/fillsurvey.php?'.$params));
-                }
-                if ($canviewlists) {
-                    $this->content->text .= html_writer::start_tag('p');
-                    $this->content->text .= html_writer::tag('a', get_string('listofuserswithfilledsurvey', 'block_siesurvey'),
-                            array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=1&'.$params));
-                    $this->content->text .= html_writer::end_tag('p');
-                    $this->content->text .= html_writer::start_tag('p');
-                    $this->content->text .= html_writer::tag('a', get_string('listofuserswithoutfilledsurvey', 'block_siesurvey'),
-                            array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=0&'.$params));
-                    $this->content->text .= html_writer::end_tag('p');
+                    $this->content = null;
                 }
             } else {
                 $this->content = null;
             }
-        } else {
-            $this->content = null;
         }
         return $this->content;
     }

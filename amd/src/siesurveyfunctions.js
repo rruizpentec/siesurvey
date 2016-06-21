@@ -43,7 +43,7 @@ define(['jquery'], function($) {
                 }, false);
                 // Compile all stylesheets definitions to use them in the iframe content.
                 $('link[rel="stylesheet"]').each(function() {
-                    if (stylesheets != '') {
+                    if (stylesheets !== '') {
                         stylesheets += ';';
                     }
                     stylesheets += $(this).attr('href');
