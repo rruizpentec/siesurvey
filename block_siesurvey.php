@@ -107,7 +107,8 @@ class block_siesurvey extends block_base {
                                 array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=1&'.$params));
                         $this->content->text .= html_writer::end_tag('p');
                         $this->content->text .= html_writer::start_tag('p');
-                        $this->content->text .= html_writer::tag('a', get_string('listofuserswithoutfilledsurvey', 'block_siesurvey'),
+                        $this->content->text .= html_writer::tag('a', 
+                                get_string('listofuserswithoutfilledsurvey', 'block_siesurvey'),
                                 array('href' => $CFG->wwwroot.'/blocks/siesurvey/userslist.php?filled=0&'.$params));
                         $this->content->text .= html_writer::end_tag('p');
                     }
