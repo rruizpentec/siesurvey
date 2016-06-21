@@ -1,0 +1,8 @@
+{
+    "name": "pentec/siesurvey",
+    "version": "1.0.0",
+    "dist": {
+        "url": "http://svn.samoo.es/svn/moodle-sie-config/siesurvey.zip",
+        "type": "zip"
+    }
+}

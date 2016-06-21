@@ -1,0 +1,19 @@
+ /**
+  * @module local_acceptcookies/acceptcookies
+  */
+define(['jquery'], function($) {
+
+    /**
+     * @constructor
+     * @alias module:local_acceptcookies/acceptcookies
+     */
+    var module = {
+        init = function() {
+            $('#accept-cookies-block').hide();
+            alert('module loaded');
+            document.cookie = 'acceptcookies_accepted_mark=;path=/';
+        }
+    };
+
+    return module;
+});

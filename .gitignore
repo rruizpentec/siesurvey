@@ -17,6 +17,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Subversion
+.svn
+
+
+vendor
+
 # =========================
 # Operating System Files
 # =========================

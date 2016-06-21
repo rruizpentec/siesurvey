@@ -1,0 +1,9 @@
+.block_siesurvey_nodatafound {
+    text-align: center !important;
+    font-style: italic !important;
+}
+
+.block_siesurvey_button {
+    width: 93%;
+    margin-bottom: 5px !important;
+}

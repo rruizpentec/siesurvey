@@ -1,0 +1,18 @@
+/**
+ * @module local_siereports/siereportsfunctions
+ */
+define(['jquery'], function($) {
+    /**
+     * @constructor
+     * @alias module:local_acceptcookies/acceptcookies
+     */
+    return {
+        hidecookiesblock: function() {
+            $('#accept-cookies-block').hide();
+            document.cookie = 'acceptcookies_accepted_mark=;path=/';
+        },
+        init: function() {
+            console.log('local_acceptcookies Ready');
+        }
+    };
+});
