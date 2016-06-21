@@ -98,8 +98,6 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     AND c.id = :courseid
                     AND u.id {$insql}";
 
-
-    
     $params = array_merge($queryparams, $inparams);
     $studentsrecords = $DB->get_recordset_sql($sql, $params);
     $content .= html_writer::start_tag('table', array('class' => 'table'));
