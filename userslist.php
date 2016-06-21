@@ -71,7 +71,8 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                 array(
                     'href' => $CFG->wwwroot."/blocks/siesurvey/userslist.php?afg_id_lms=$afgidlms&filled=1&courseid=$courseid",
                     'class' => 'btn btn-default',
-                    'style' => 'float: right'));
+                    'style' => 'float: right')
+        );
         list($insql, $inparams) = $DB->get_in_or_equal(explode(',', $result), SQL_PARAMS_QM, 'param', false);
         $content .= html_writer::end_tag('h3');
     } else {
@@ -80,7 +81,8 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                 array(
                     'href' => $CFG->wwwroot."/blocks/siesurvey/userslist.php?afg_id_lms=$afgidlms&filled=0&courseid=$courseid",
                     'class' => 'btn btn-default',
-                    'style' => 'float: right'));
+                    'style' => 'float: right')
+        );
         list($insql, $inparams) = $DB->get_in_or_equal(explode(',', $result));
         $content .= html_writer::end_tag('h3');
     }
@@ -94,11 +96,11 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     AND r.roleid = 5
                     AND cx.contextlevel = 50
                     AND c.id = ?
-                    AND u.id $insql";
+                    AND u.id ".$insql;
 
     $params = array_merge($queryparams, $inparams);
-    $studentsrecords = $DB->get_records_sql($sql, $params);
-
+    //$studentsrecords = $DB->get_records_sql($sql, $params);
+    $sutdentsrecords = $DB->get_recordset_sql($sql, $params);
     $content .= html_writer::start_tag('table', array('class' => 'table'));
     $content .= html_writer::start_tag('tr');
     $content .= html_writer::tag('th', get_string('firstname', 'block_siesurvey'));
