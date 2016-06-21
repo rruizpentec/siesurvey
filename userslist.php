@@ -114,7 +114,7 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
         }
     } else {
         $content .= html_writer::tag('td', get_string('nodatafound', 'block_siesurvey'),
-                array('colspan' => '100%', 'class' => 'block_siesurvey_nodatafound'));
+                array('colspan' => '100%', 'class' => 'text-center block_siesurvey_nodatafound'));
     }
     $content .= html_writer::end_tag('table');
 } else {
