@@ -99,8 +99,7 @@ if (has_capability('block/siesurvey:viewlistofsurveysfilled', $coursecontext, $U
                     AND u.id ".$insql;
 
     $params = array_merge($queryparams, $inparams);
-    //$studentsrecords = $DB->get_records_sql($sql, $params);
-    $sutdentsrecords = $DB->get_recordset_sql($sql, $params);
+    $studentsrecords = $DB->get_recordset_sql($sql, $params);
     $content .= html_writer::start_tag('table', array('class' => 'table'));
     $content .= html_writer::start_tag('tr');
     $content .= html_writer::tag('th', get_string('firstname', 'block_siesurvey'));

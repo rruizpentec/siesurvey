@@ -83,14 +83,14 @@ class block_siesurvey extends block_base {
             }
             $sieconfig = get_config('package_sie');
             $baseurl = $sieconfig->baseurl;
-            $professionalcertificatecategory = $sieconfig->professionalcertificatecategory;
-            if ($professionalcertificatecategory == '') {
-                $professionalcertificatecategory = 1;
+            $profcertcat = $sieconfig->professionalcertificatecategory;
+            if ($profcertcat == '') {
+                $profcertcat = 1;
             }
 
             if (isset($baseurl) && $baseurl != '' && $baseurl != null) {
                 $afgidlms = '';
-                if ($COURSE->category != $professionalcertificatecategory ) {
+                if ($COURSE->category != $profcertcat) {
                     // Es Propia.
                     $afgidlms = $COURSE->id;
                 } else {
